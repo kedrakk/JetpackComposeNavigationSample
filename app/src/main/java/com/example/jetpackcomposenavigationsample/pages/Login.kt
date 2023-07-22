@@ -17,7 +17,7 @@ import com.example.jetpackcomposenavigationsample.data.ROUTES
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginPage(navController: NavController) {
-    Scaffold {
+    Scaffold{
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
