@@ -11,22 +11,29 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.jetpackcomposenavigationsample.data.ROUTES
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreenPage() {
-    Scaffold {
-        Column(
-            modifier = Modifier.padding(it).fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Button(onClick = { /*TODO*/ }) {
-                Text(text = "Click here to login")
-            }
-            Button(onClick = { /*TODO*/ }) {
-                Text(text = "Click here to sing up")
-            }
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = ROUTES.LOGIN.name){
+        composable(ROUTES.LOGIN.name){
+            LoginPage(navController = navController)
+        }
+        composable(ROUTES.HOME.name){
+            HomePage()
+        }
+        composable(ROUTES.ACCOUNT.name){
+            AccountPage()
+        }
+        composable(ROUTES.DETAIL.name){
+            DetailPage()
+        }
+        composable(ROUTES.SETTING.name){
+            SettingPage()
         }
     }
 }
