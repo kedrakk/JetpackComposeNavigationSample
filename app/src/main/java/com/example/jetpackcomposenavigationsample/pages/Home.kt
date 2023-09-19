@@ -1,5 +1,6 @@
 package com.example.jetpackcomposenavigationsample.pages
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,37 +12,36 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.jetpackcomposenavigationsample.data.ROUTES
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomePage() {
-    Scaffold(topBar = {
-        CommonAppBar(label = "Home")
-    },
-        bottomBar = {
-            CommonBottomBar()
-        }
+    val navController = rememberNavController()
+    Scaffold(
+        bottomBar = { BottomBar(navController = navController) }
     ) {
-        Column(
-            modifier = Modifier
-                .padding(it)
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(text = "This is Home Page", modifier = Modifier.padding(vertical = 10.dp))
-            Button(onClick = { /*TODO*/ }) {
-                Text(text = "Click here to see detail")
-            }
-        }
+        NavigationGraphHome(navController = navController)
     }
-
 }
 
-@Preview
 @Composable
-fun HomePreview() {
-    HomePage()
+fun HomeContent(navController: NavHostController) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "This is Home Page", modifier = Modifier.padding(vertical = 10.dp))
+        Button(onClick = {
+            navController.navigate(ROUTES.DETAIL.name)
+        }) {
+            Text(text = "Click here to see detail")
+        }
+    }
 }
