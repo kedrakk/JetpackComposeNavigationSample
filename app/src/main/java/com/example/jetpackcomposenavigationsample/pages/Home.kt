@@ -14,7 +14,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.jetpackcomposenavigationsample.data.BottomBarItemsData
 import com.example.jetpackcomposenavigationsample.data.ROUTES
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -22,8 +24,16 @@ import com.example.jetpackcomposenavigationsample.data.ROUTES
 @Composable
 fun HomePage() {
     val navController = rememberNavController()
+    val showBottomBar = navController
+        .currentBackStackEntryAsState().value?.destination?.route in BottomBarItemsData.allBottomBarItems.map { it.destination.name }
     Scaffold(
-        bottomBar = { BottomBar(navController = navController) }
+        bottomBar = {
+            BottomBar(
+                navController = navController,
+                allBottomBarItems = BottomBarItemsData.allBottomBarItems,
+                isShowBottomBar = showBottomBar,
+            )
+        }
     ) {
         NavigationGraphHome(navController = navController)
     }

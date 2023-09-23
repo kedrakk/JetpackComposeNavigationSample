@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.jetpackcomposenavigationsample.data.BottomBarItems
 import com.example.jetpackcomposenavigationsample.data.BottomBarItemsData
 import com.example.jetpackcomposenavigationsample.ui.theme.PurpleGrey80
 
@@ -48,9 +49,10 @@ fun CommonAppBar(label: String) {
 
 
 @Composable
-fun BottomBar(navController: NavHostController) {
+fun BottomBar(navController: NavHostController, allBottomBarItems: List<BottomBarItems>,isShowBottomBar:Boolean) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+    if(isShowBottomBar)
     NavigationBar(
         containerColor = PurpleGrey80,
     ) {
@@ -58,7 +60,7 @@ fun BottomBar(navController: NavHostController) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            BottomBarItemsData.allBottomBarItems.map {
+            allBottomBarItems.map {
                 NavigationBarItem(
                     selected = currentRoute == it.destination.name ,
                     onClick = {
