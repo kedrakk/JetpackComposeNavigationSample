@@ -18,13 +18,13 @@ fun NavigationGraph(navController: NavHostController) {
             LoginPage(navController = navController)
         }
         composable(ROUTES.HOME.name) {
-            HomePage()
+            HomePage(authNavHostController = navController)
         }
     }
 }
 
 @Composable
-fun NavigationGraphHome(navController: NavHostController) {
+fun NavigationGraphHome(navController: NavHostController,authNavHostController: NavHostController) {
     NavHost(navController = navController, startDestination = ROUTES.HOME_CONTENT.name){
         composable(ROUTES.HOME_CONTENT.name) {
             HomeContent(navController)
@@ -36,7 +36,7 @@ fun NavigationGraphHome(navController: NavHostController) {
             DetailPage()
         }
         composable(ROUTES.SETTING.name) {
-            SettingPage(navController = navController)
+            SettingPage(authNavController = authNavHostController)
         }
     }
 }

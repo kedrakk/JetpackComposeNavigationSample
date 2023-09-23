@@ -22,7 +22,7 @@ import com.example.jetpackcomposenavigationsample.data.ROUTES
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomePage() {
+fun HomePage(authNavHostController: NavHostController) {
     val navController = rememberNavController()
     val showBottomBar = navController
         .currentBackStackEntryAsState().value?.destination?.route in BottomBarItemsData.allBottomBarItems.map { it.destination.name }
@@ -35,7 +35,7 @@ fun HomePage() {
             )
         }
     ) {
-        NavigationGraphHome(navController = navController)
+        NavigationGraphHome(navController = navController, authNavHostController = authNavHostController)
     }
 }
 
